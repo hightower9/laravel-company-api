@@ -8,8 +8,19 @@ pipeline {
     }
 
     stage('Log') {
-      steps {
-        sh 'ls'
+      parallel {
+        stage('Log') {
+          steps {
+            sh 'ls'
+          }
+        }
+
+        stage('Composer') {
+          steps {
+            sh 'cd laravel-company-api && composer install'
+          }
+        }
+
       }
     }
 
